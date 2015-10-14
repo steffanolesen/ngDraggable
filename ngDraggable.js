@@ -47,6 +47,7 @@ angular.module("ngDraggable", [])
                 var allowTransform = angular.isDefined(attrs.allowTransform) ? scope.$eval(attrs.allowTransform) : true;
 
                 var getDragData = $parse(attrs.ngDragData);
+                var fastDrag = angular.isDefined(attrs.fastDrag) ? scope.$eval(attrs.fastDrag) : false;
 
                 // deregistration function for mouse move events in $rootScope triggered by jqLite trigger handler
                 var _deregisterRootMoveListener = angular.noop;
@@ -118,7 +119,7 @@ angular.module("ngDraggable", [])
                         return;
                     }
 
-                    if(_hasTouch){
+                    if(_hasTouch && !fastDrag){
                         cancelPress();
                         _pressTimer = setTimeout(function(){
                             cancelPress();
